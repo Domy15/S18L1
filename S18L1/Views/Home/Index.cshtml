@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="root"></div>
+
+@section Scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let root = document.getElementById("root");
+
+            if(root){
+                fetch("Students/All-Students", {
+                    method: "GET"
+                })
+                .then(response => {
+                    if(response.ok){
+                        return response.text();
+                    }
+                })
+                .then(response => {
+                    root.innerHTML = response;
+                })
+            }
+        });
+    </script>
+}

@@ -1,0 +1,32 @@
+﻿@model StudentListViewModel
+
+@{
+	ViewData["Title"] = "Student list";
+}
+
+@if (Model.Students != null && Model.Students.Count() > 0)
+{
+    <table id="productsTable" class="table table-striped">
+        <thead>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Email</th>
+        <th>Born Date</th>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Students)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Surname</td>
+                    <td>@product.Email</td>
+                    <td>@product.BornDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-danger">No students found!</p>
+}
