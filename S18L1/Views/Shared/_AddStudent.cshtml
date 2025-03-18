@@ -1,0 +1,25 @@
+﻿@model AddStudentViewModel
+
+@{
+	ViewData["Title"] = "Add Student";
+}
+
+<form id="addForm">
+	<div class="mb-3">
+		<label for="name" class="form-label">Name</label>
+		<input id="name" type="text" class="form-control" asp-for="Name" />
+	</div>
+	<div class="mb-3">
+		<label for="surname" class="form-label">Surname</label>
+		<input id="surname" type="text" class="form-control" asp-for="Surname" />
+	</div>
+	<div class="mb-3">
+		<label for="email" class="form-label">Email</label>
+		<input id="email" type="email" class="form-control" asp-for="Email" />
+	</div>
+	<div class="mb-3">
+		<label for="bornDate" class="form-label">Born Date</label>
+		<input id="bornDate" type="text" class="form-control" asp-for="BornDate" />
+	</div>
+	<button class="btn btn-success" type="button" onclick="sendAddForm()">Save</button>
+</form>
