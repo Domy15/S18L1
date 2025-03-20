@@ -1,7 +1,10 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using S18L1.Models;
 using S18L1.Services;
 using S18L1.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace S18L1.Controllers
 {
@@ -27,6 +30,7 @@ namespace S18L1.Controllers
             return PartialView("_StudentList", studentList);
         }
 
+        [Authorize(Roles = "Professor")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var student = await _studentService.GetStudentById(id);
@@ -69,6 +73,7 @@ namespace S18L1.Controllers
             });
         }
 
+        [Authorize(Roles = "Professor")]
         [HttpPost]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -90,6 +95,7 @@ namespace S18L1.Controllers
             });
         }
 
+        [Authorize(Roles = "Professor")]
         public IActionResult Add()
         {
             return PartialView("_AddStudent");
@@ -107,7 +113,7 @@ namespace S18L1.Controllers
                 });
             }
 
-            var result = await _studentService.AddStudent(addStudentViewModel);
+            var result = await _studentService.AddStudent(addStudentViewModel, User);
 
             if (!result)
             {

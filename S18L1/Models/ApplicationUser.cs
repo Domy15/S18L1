@@ -16,5 +16,7 @@ namespace S18L1.Models
 
         [Required]
         public ICollection<ApplicationUserRole> ApplicationUserRoles { get; set; }
+
+        public ICollection<Student> students { get; set; }
     }
 }

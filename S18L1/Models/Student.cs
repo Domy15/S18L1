@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace S18L1.Models
 {
@@ -21,5 +22,10 @@ namespace S18L1.Models
         [Required]
         [StringLength(200)]
         public string Email { get; set; } 
+
+        public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public ApplicationUser User { get; set; }
     }
 }

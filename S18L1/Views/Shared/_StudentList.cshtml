@@ -12,8 +12,12 @@
 				<th>Name</th>
 				<th>Surname</th>
 				<th>Email</th>
-				<th>Born Date</th>
-				<th>Actions</th>
+				<th>Bith Date</th>
+				<th>Added by</th>
+				@if (User.IsInRole("Professor"))
+				{
+					<th>Actions</th>
+				}
 			</tr>
 		</thead>
 		<tbody>
@@ -24,10 +28,14 @@
 					<td>@student.Surname</td>
 					<td>@student.Email</td>
 					<td>@student.BornDate</td>
-					<td>
-						<button class="btn btn-sm btn-warning" onclick="showEditModal('@student.Id')">Edit</button>
-						<button class="btn btn-sm btn-danger" onclick="showDeleteModal('@student.Id')">Delete</button>
-					</td>
+					<td>@student.User.FirstName @student.User.LastName</td>
+					@if (User.IsInRole("Professor"))
+					{
+						<td>
+							<button class="btn btn-sm btn-warning" onclick="showEditModal('@student.Id')">Edit</button>
+							<button class="btn btn-sm btn-danger" onclick="showDeleteModal('@student.Id')">Delete</button>
+						</td>
+					}
 				</tr>
 			}
 		</tbody>

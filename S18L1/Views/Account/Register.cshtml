@@ -1,11 +1,36 @@
 ﻿@model RegisterViewModel
 
 <form asp-controller="Account" asp-action="Register">
-    <input asp-for="@Model.FirstName" />
-    <input asp-for="@Model.LastName" />
-    <input asp-for="@Model.Email" />
-    <input type="date" asp-for="@Model.BirthDate" />
-    <input type="password" asp-for="@Model.Password" />
-    <input type="password" asp-for="@Model.ConfirmPassword" />
-    <button>Login</button>
+
+	<div class="mb-3">
+		<label for="name" class="form-label">Name</label>
+		<input id="name" class="form-control" asp-for="@Model.FirstName" />
+	</div>
+
+	<div class="mb-3">
+		<label for="lastName" class="form-label">LastName</label>
+		<input id="lastName" class="form-control" asp-for=" @Model.LastName" />
+	</div>
+
+	<div class="mb-3">
+		<label for="email" class="form-label">Email</label>
+		<input id="email" class="form-control" asp-for="@Model.Email" />
+	</div>
+
+	<div class="mb-3">
+		<label for="bithDate" class="form-label">BirthDate</label>
+		<input id="bithDate" class="form-control" type="date" asp-for="@Model.BirthDate" />
+	</div>
+
+	<div class="mb-3">
+		<label for="password" class="form-label">Password</label>
+		<input id="password" type="password" class="form-control" asp-for="@Model.Password" />
+	</div>
+
+	<div class="mb-3">
+		<label for="confirmPassword" class="form-label">ConfirmPassword</label>
+		<input id="confirmPassword" type="password" class="form-control" asp-for="@Model.ConfirmPassword" />
+	</div>
+
+	<button class="btn btn-success" type="submit">Register</button>
 </form>

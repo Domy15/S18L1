@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using S18L1.Data;
 using S18L1.Models;
@@ -9,10 +11,12 @@ namespace S18L1.Services
     public class StudentService
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public StudentService(ApplicationDbContext context)
+        public StudentService(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         private async Task<bool> SaveAsync()
@@ -42,7 +46,7 @@ namespace S18L1.Services
 
             try
             {
-                students.Students = await _context.Stundents.ToListAsync();
+                students.Students = await _context.Stundents.Include(s => s.User).ToListAsync();
             }
             catch
             {
@@ -109,8 +113,10 @@ namespace S18L1.Services
             }
         }
 
-        public async Task<bool> AddStudent(AddStudentViewModel addStudentViewModel)
+        public async Task<bool> AddStudent(AddStudentViewModel addStudentViewModel, ClaimsPrincipal claimsPrincipal)
         {
+            var user = await _userManager.FindByEmailAsync(claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email).Value);
+
             try
             {
                 var student = new Student()
@@ -119,7 +125,8 @@ namespace S18L1.Services
                     Name = addStudentViewModel.Name,
                     Surname = addStudentViewModel.Surname,
                     Email = addStudentViewModel.Email,
-                    BornDate = addStudentViewModel.BornDate
+                    BornDate = addStudentViewModel.BornDate,
+                    UserId = user.Id,
                 };
 
                 _context.Stundents.Add(student);

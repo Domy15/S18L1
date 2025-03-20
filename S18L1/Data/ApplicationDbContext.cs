@@ -32,6 +32,11 @@ namespace S18L1.Data
                 .HasOne(ur => ur.Role)
                 .WithMany(u => u.ApplicationUserRoles)
                 .HasForeignKey(ur => ur.RoleId);
+
+            modelBuilder.Entity<Student>()
+                .HasOne(s => s.User)
+                .WithMany(u => u.students)
+                .HasForeignKey(s => s.UserId);
         }
     }
 }
